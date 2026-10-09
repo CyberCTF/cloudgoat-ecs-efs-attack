@@ -31,6 +31,11 @@ isoloom down cloud-services
 The scenario's instances accept only your public IP: pass it on `run` (the spec holds a
 placeholder that refuses to deploy). `down` works without it.
 
+After `down`, ECS keeps the deregistered task definition revision (`webapp:N`, INACTIVE), and
+the EFS service-linked role AWS made on first use stays: remove them with
+`aws ecs delete-task-definitions --task-definitions webapp:N` and
+`aws iam delete-service-linked-role --role-name AWSServiceRoleForAmazonElasticFileSystem`.
+
 `run` prints where to start (your starting credentials, if the scenario gives you some). Guide:
 the scenario's [README](app/cloudgoat/scenarios/aws/ecs_efs_attack/README.md) and cheat sheets in [`app/cloudgoat/scenarios/aws/ecs_efs_attack/`](app/cloudgoat/scenarios/aws/ecs_efs_attack).
 Anything you create yourself while playing isn't Terraform's: delete it before `down`.
