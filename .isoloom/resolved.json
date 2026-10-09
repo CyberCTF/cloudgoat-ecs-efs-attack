@@ -3,7 +3,9 @@
   "resolved_version": 1,
   "name": "cloudgoat-ecs-efs-attack",
   "instance": null,
-  "inputs": [],
+  "inputs": [
+    "PLAYER_CIDR"
+  ],
   "networks": {},
   "reach": [],
   "machines": {},
@@ -64,7 +66,9 @@
       "account_id",
       "ruse_box_ip"
     ],
-    "inputs": [],
+    "inputs": [
+      "PLAYER_CIDR"
+    ],
     "hourly_usd": 0.05
   },
   "message": "Your foothold is the ruse box in account {{ cloud.outputs.account_id }}:\n  ssh -i .keys/cloudgoat ubuntu@{{ cloud.outputs.ruse_box_ip }}\nGoal: the flag on the scenario's EFS file system. Cheat sheet:\napp/cloudgoat/scenarios/aws/ecs_efs_attack/cheat_sheet.md\n"
