@@ -57,5 +57,15 @@
       }
     ]
   },
-  "message": null
+  "cloud": {
+    "provider": "aws",
+    "terraform": "terraform",
+    "outputs": [
+      "account_id",
+      "ruse_box_ip"
+    ],
+    "inputs": [],
+    "hourly_usd": 0.05
+  },
+  "message": "Your foothold is the ruse box in account {{ cloud.outputs.account_id }}:\n  ssh -i .keys/cloudgoat ubuntu@{{ cloud.outputs.ruse_box_ip }}\nGoal: the flag on the scenario's EFS file system. Cheat sheet:\napp/cloudgoat/scenarios/aws/ecs_efs_attack/cheat_sheet.md\n"
 }
