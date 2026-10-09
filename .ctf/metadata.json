@@ -1,0 +1,8 @@
+{
+  "title": "CloudGoat: ECS EFS attack",
+  "description": "A CloudGoat scenario by Rhino Security Labs and Sebastian Mora, deployed into your own AWS account: from an SSH foothold on an EC2 instance, backdoor an ECS task definition to take the container's role, tag your way into an SSM session on the admin instance, then find and mount the EFS file system.",
+  "question": "From the ruse box, read the flag stored on the scenario's EFS file system.",
+  "category": "MISC",
+  "difficulty": 3,
+  "evidence_kind": "SECRET"
+}

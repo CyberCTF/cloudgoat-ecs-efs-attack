@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# CloudGoat's ecs_efs_attack scenario by Rhino Security Labs
+# (https://github.com/RhinoSecurityLabs/cloudgoat), in your own AWS account.
+# Source in app/ (upstream, unchanged); terraform/ is this lab's wrapper around the scenario's own
+# terraform/ folder, feeding it what CloudGoat's CLI would.
+# Run: `aws login`, then `isoloom run cloud-services`; end it with `isoloom down cloud-services`.
+# Your public IP is the only address its instances accept: pass it on `run` (the placeholder
+# below refuses to deploy; `down` works without it):
+#   isoloom run cloud-services -s cloud.vars.whitelist=$(curl -s https://checkip.amazonaws.com)/32
+version: 1
+name: cloudgoat-ecs-efs-attack
+
+cloud:
+  provider: aws
+  terraform: terraform
+  vars:
+    region: us-east-1
+    profile: default
+    whitelist: 0.0.0.0/32   # placeholder: set yours with -s (see above)
+  outputs:
+    account_id: account_id
+    ruse_box_ip: ruse_box_ip
+  hourly_usd: 0.05
+
+checks:
+  - name: the ruse box accepts the lab's SSH key
+    script: checks/ssh.sh
+    wait: 420
+
+message: |
+  Your foothold is the ruse box in account {{ cloud.outputs.account_id }}:
+    ssh -i .keys/cloudgoat ubuntu@{{ cloud.outputs.ruse_box_ip }}
+  Goal: the flag on the scenario's EFS file system. Cheat sheet:
+  app/cloudgoat/scenarios/aws/ecs_efs_attack/cheat_sheet.md
